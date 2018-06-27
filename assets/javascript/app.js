@@ -20,9 +20,9 @@ $(document).ready(function() {
     window.addEventListener("click", windowOnClick);
 
     //###################### Calling Google News ################################
-    var current-newsAPI = 'https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey=d3b35953079847e18ee6d70f0c5ef14a'
+    var currentNewsAPI = 'https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey=d3b35953079847e18ee6d70f0c5ef14a'
     $.ajax({
-      url: current-newsAPI,
+      url: currentNewsAPI,
       method: "GET",
     }).then(function(data) {
       var resTop = data.articles;
@@ -45,6 +45,7 @@ $(document).ready(function() {
     //############################# Topic Search on click ##############################/
     $(document).on("click", "#topic-search", function() {
       var inputURL=$("input").val();
+      $("#textinput").val("");
       $(".current-news").hide(1000);
       $(".topic-results").show(1000);
 
@@ -87,8 +88,8 @@ $(document).ready(function() {
       $(".current-news").hide(1000);
       $(".topic-results").hide(1000);
       $(".results-display").show(1000);
-      $(".current-news").hide(1000);
       var articleToSummarize=$("input").val();
+      $("#textinput").val("");
 
       var queryUrl = "https://cors-anywhere.herokuapp.com/" + "api.smmry.com/SM_API_KEY=CB55D94259&SM_URL=" + articleToSummarize + "&SM_IGNORE_LENGTH";
       $.ajax({
@@ -96,7 +97,7 @@ $(document).ready(function() {
         method: "GET",
       }).then(function(response) {
         console.log(response);
-        $("#summary-output").append(response.sm_api_content);
+        $("#summary-output").text(response.sm_api_content);
         $("#article-title").text(response.sm_api_title);
       });
     
@@ -129,7 +130,7 @@ $(document).ready(function() {
       ).then(function(res2) {
         var sumSomeMore = JSON.parse(res2);
         console.log(sumSomeMore);
-        $("#summary-output").append(response.sm_api_content);
+        $("#summary-output").text(response.sm_api_content);
       });
       
     //############################## Indico Political/ Emotional Analysis #####################################
@@ -201,6 +202,7 @@ $(document).ready(function() {
                       duration: 1000,
                       easing: 'in'
                       },
+                      legend: { position: 'none' },
                      'width':400,
                      'height':300};
       var chart = new google.visualization.BarChart($('#political-chart')[0]);
@@ -275,7 +277,8 @@ $(document).ready(function() {
                       chart: {
                         'width':500,
                         'height':400, 
-                      }
+                      },
+                      legend: { position: 'none' },
                     };
       var chart = new google.visualization.BarChart($('#emotion-chart')[0]);
       chart.draw(data, options);
@@ -327,5 +330,12 @@ $(document).ready(function() {
   
       });
     });
- 
+    
+    //################################ RESET ########################
+    $("#reset-button").click(function(){
+      $(".results-display").hide(400);
+      $(".hero").show(1200);
+      $(".topic-results").show(1200);
+      $(".current-news").show(1200);
+    })
   })
