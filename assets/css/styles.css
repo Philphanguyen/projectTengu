@@ -46,10 +46,10 @@
 }
 
 .news-articles {
-    font-size: 20px !important;
+    font-size: 25px !important;
 }
 
-#clicker {
+#headline-button {
     width: 100%;
     height: auto;
     margin-top: 20px;
@@ -57,4 +57,10 @@
     background-color: white;
     border-radius: 5px;
     font-size: 18px;
+}
+
+#submit-url-button,
+#topic-search {
+    background-color: rgba(219, 4, 4, 0.692);
+    font-color: black;
 }
