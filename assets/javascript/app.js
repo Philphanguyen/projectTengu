@@ -35,15 +35,14 @@ $(document).ready(function() {
         currentDiv.append(currentBrk);
         currentTitle.attr("input", resTop[i].url)
         currentTitle.attr("id", "headline-button");
-        console.log("displayed current" + currentDiv);
         $("#top-current").prepend(currentDiv);
         //I want each of the current news to be a link, but it somehow runs through the url
         //summary and emotion stuff when you click it.
       }
     })
     
-    //############################# Topic Search on click ##############################/
-    $(document).on("click", "#topic-search", function() {
+    //############################# Topic Search on click ##############################
+    $(document).on("click", "#topic-search-button", function() {
       var inputURL=$("input").val();
       $("#textinput").val("");
       $(".current-news").hide(1000);
@@ -82,7 +81,7 @@ $(document).ready(function() {
       });
     });
   
-  // ################################### Submit URL Button Click #################################3 
+  // ################################### Submit URL Button Click #################################
     $(document).on("click", "#submit-url-button", function() {
       $(".hero").hide(1000);
       $(".current-news").hide(1000);
@@ -91,6 +90,7 @@ $(document).ready(function() {
       var articleToSummarize=$("input").val();
       $("#textinput").val("");
 
+      //############################# SMMRY API (Sumarize/ Title) ############################################
       var queryUrl = "https://cors-anywhere.herokuapp.com/" + "api.smmry.com/SM_API_KEY=CB55D94259&SM_URL=" + articleToSummarize + "&SM_IGNORE_LENGTH";
       $.ajax({
         url: queryUrl,
@@ -100,7 +100,7 @@ $(document).ready(function() {
         $("#summary-output").text(response.sm_api_content);
         $("#article-title").text(response.sm_api_title);
       });
-    
+      //############################# Indico API (Summarize) ################################
       $.post(
         'https://apiv2.indico.io/summarization',
         JSON.stringify({
@@ -113,24 +113,27 @@ $(document).ready(function() {
         console.log(summaryObject);
         let summaryDisplay = summaryObject.results.toString();
         summaryDisplay = summaryDisplay.replace(/\.,/g, ". ");
+        summaryDisplay = summaryDisplay.replace(/\?,/g, ". ");
         summaryDisplay = summaryDisplay.replace(/Image copyright Getty Images/g, "");
-        $("#summary-output").append(summaryDisplay);   
+        $("#summary-output").text(summaryDisplay);   
         
         $("#url-button").on("click", function() {
           window.open(articleToSummarize,  "_blank");
         });
       });
 
+      //################################ Aylien API (Summarize/ Title) ##########################
       $.post(
         'https://api.aylien.com/api/v1/summarize',
         JSON.stringify({
-          'X-AYLIEN-TextAPI-Application-Key': " 541a5c8142013a14cc4dca1084b86c28",
+          'X-AYLIEN-TextAPI-Application-Key': "541a5c8142013a14cc4dca1084b86c28",
           'data': articleToSummarize,
+          "Accept": "application/json" 
         })
       ).then(function(res2) {
         var sumSomeMore = JSON.parse(res2);
         console.log(sumSomeMore);
-        $("#summary-output").text(response.sm_api_content);
+        
       });
       
     //############################## Indico Political/ Emotional Analysis #####################################
@@ -215,6 +218,7 @@ $(document).ready(function() {
       });  
     });
 
+//############################# Repeat Code for topics buttons (summarize) ###########################
     $(document).on("click", "#headline-button", function() {
       console.log("url clicked");
       $(".hero").hide(1000);
@@ -223,9 +227,6 @@ $(document).ready(function() {
       $(".results-display").show(1000);
       $(".news-results").hide(1000);
       var articleToSummarize = $(this).attr("input");
-
-      
-
       $.post(
         'https://apiv2.indico.io/summarization',
         JSON.stringify({
@@ -236,14 +237,17 @@ $(document).ready(function() {
       ).then(function(res1) { 
         console.log(res1) ;
         var summaryObject = JSON.parse(res1);
-        console.log(summaryObject);
-        $("#summary-output").text(summaryObject.results);     
+        let summaryDisplay = summaryObject.results.toString();
+        summaryDisplay = summaryDisplay.replace(/\.,/g, ". ");
+        summaryDisplay = summaryDisplay.replace(/\?,/g, ". ");
+        summaryDisplay = summaryDisplay.replace(/Image copyright Getty Images/g, "");
+        $("#summary-output").text(summaryDisplay);     
       });
 
    
 
-    // Obtains sentiment output for article input
-
+ 
+//############################# Repeat Code for topics buttons (emotion) ###########################
       $.post(
         'https://apiv2.indico.io/emotion/',
         JSON.stringify({
@@ -285,9 +289,7 @@ $(document).ready(function() {
     };
       });
 
-    //obtains political output for article input
-    
-    
+    //############################# Repeat Code for topics buttons (political) ###########################
       $.post(
         'https://apiv2.indico.io/political',
         JSON.stringify({
