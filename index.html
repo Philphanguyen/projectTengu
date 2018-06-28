@@ -41,7 +41,7 @@
             Article Analysis Tool
           </h1>
           <h2 class="subtitle">
-            Learn what's really being said. Paste a URL below, click on a recent article, or search for articles by topic.
+            Learn what's really being said. Paste a URL below, click on a recent article or search for articles by topic.
           </h2>
         </div>
       </div>
@@ -82,10 +82,10 @@
   </container>
 
   <container class="results-display">
-    <!-- Put in columns so we can have a margin -->
+   
     <div class="columns is-mobile">
       <div class="column is-offset-1 is-10">
-        <!-- Ancestors are their own rows -->
+        
         <div class="tile is-ancestor has-text-centered">
           <div class="tile is-parent ">
               <div class="tile is-child">
@@ -93,7 +93,7 @@
                 </div>
               </div>
          </div> 
-         <!-- New Row -->
+       
         <div class="tile is-ancestor"> 
           <div class="tile is-parent is-6">
              <div class="tile is-child box">
@@ -101,36 +101,17 @@
                <div id="summary-output"></div>
               </div>
              </div>
-             <!--  -->
+            
           <div class="tile is-parent is-vertical">
            
             <div class="tile is-child box">
               <div class="title">Emotion</div>
-
                 <div id="emotion-chart"></div>
-
-              <button class="trigger" id="modal-button">?</button>
-                <div id="emotions-modal" class="modal">
-                  <div class="modal-background"></div>
-                  <div class="modal-content">
-                    <p>The number results are the probability the author is expressing the respective emotion.</p>
-                  </div>
-                  <button class="modal-close is-large" aria-label="close"></button>
-                </div>
-             </div>
+              </div>
          
             <div class="tile is-child box">
               <p class="title">Political Analysis</p>
               <div id="political-chart"></div>
-              
-              <button id="modal-button">?</button>
-              <div id="emotions-modal" class="modal">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                     <p>THe number results represent the likelihood that each of the  four political leanings are expressed in the analyzed text.  Values less than 0.05 indicate that it is very unlikely the text  is expressing that particular political leaning.</p>
-                 </div>
-                <button class="modal-close is-large" aria-label="close"></button>
-               </div>
              </div>
            </div>
           </div>
