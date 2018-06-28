@@ -17,19 +17,27 @@
     font-size: 18px;
 }
 
-#submit-url-button,
-#topic-search-button {
-    background-color: rgba(219, 4, 4, 0.692);
-    font-color: black;
-}
-
 .logo {
     color: red;
     font-size: 4em;
     font-family: 'Oswald', Times;
 } 
 
+.small-logo {
+    color: red;
+    font-size: 2em;
+    font-family: 'Oswald', Times;
+} 
+
 .has-background {
-    background: url('../images/hex.png') no-repeat center center fixed;
+    background: url('../images/wood.png') no-repeat center center fixed;
     background-size: cover;
 }
+
+#element-toggle {
+    display: none;
+  }
+  #element-toggle:checked ~ #myModal {
+    display: flex;
+  }
+

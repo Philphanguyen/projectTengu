@@ -77,7 +77,7 @@ $(document).ready(function() {
       var options = {
                       animation: {
                         startup: true,
-                        duration: 1000,
+                        duration: 1500,
                         easing: 'in'
                       },
                       'width':500,
@@ -115,13 +115,14 @@ $(document).ready(function() {
       var options = {
                       animation: {
                       startup: true,
-                      duration: 1000,
+                      duration: 1500,
                       easing: 'in'
                       },
-                      legend: { position: 'none' },
-                     'width':400,
-                     'height':300};
-      var chart = new google.visualization.BarChart($('#political-chart')[0]);
+                     'width':600,
+                     'height':300,
+                      pieHole: 0.4
+                    };
+      var chart = new google.visualization.PieChart($('#political-chart')[0]);
       chart.draw(data, options);
     };
       
@@ -191,10 +192,10 @@ $(document).ready(function() {
   
   // ################################### Submit URL Button Click #################################
     $(document).on("click", "#submit-url-button", function() {
-      $(".hero").hide(1000);
-      $(".current-news").hide(1000);
-      $(".topic-results").hide(1000);
-      $(".results-display").show(1000);
+      $(".hero").hide(500);
+      $(".current-news").hide(500);
+      $(".topic-results").hide(500);
+      $(".results-display").show(1400);
       var articleToSummarize=$("input").val();
       $("#textinput").val("");
       articleAnalyzer(articleToSummarize);
@@ -203,11 +204,11 @@ $(document).ready(function() {
 //############################# Repeat Code for topics buttons (summarize) ###########################
     $(document).on("click", "#headline-button", function() {
       console.log("url clicked");
-      $(".hero").hide(1000);
-      $(".current-news").hide(1000);
-      $(".topic-results").hide(1000);
+      $(".hero").hide(500);
+      $(".current-news").hide(500);
+      $(".topic-results").hide(500);
+      $(".news-results").hide(500);
       $(".results-display").show(1000);
-      $(".news-results").hide(1000);
       $("#article-title").text($(this).attr("title"));
       var articleToSummarize = $(this).attr("input");
       articleAnalyzer(articleToSummarize);
@@ -215,9 +216,19 @@ $(document).ready(function() {
     
     //################################ RESET ########################
     $("#reset-button").click(function(){
-      $(".results-display").hide(400);
-      $(".hero").show(1200);
-      $(".topic-results").show(1200);
-      $(".current-news").show(1200);
+      $(".results-display").hide(500);
+      $(".hero").show(1000);
+      $(".topic-results").show(1000);
+      $(".current-news").show(1000);
     }); //########### reset end
+
+    //################################# MODAL ################################
+    $("#modal-button").click(function() {
+      $(".modal").addClass("is-active");  
+    });
+    
+    $(".modal-close").click(function() {
+       $(".modal").removeClass("is-active");
+    });                     
+
   }); //############### On load

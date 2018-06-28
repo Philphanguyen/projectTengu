@@ -16,7 +16,7 @@
 
 <body>
  
-  <section class="hero is-medium is-dark is-bold has-background">
+  <section class="hero is-medium is-dark has-background">
     <div class="hero-head">
       <nav class="navbar">
         <div class="container">
@@ -25,13 +25,6 @@
               <span class="logo">Tengu</span>
             </a>
           </div>
-          <div id="navbarMenuHeroA" class="navbar-menu">
-              <div class="navbar-end">
-                <a class="navbar-item is-active">
-                  
-                  </a>
-                </div>
-              </div>
         </div>
       </nav>
     </div>  
@@ -46,15 +39,14 @@
         </div>
       </div>
       
-    </section>  
+  </section>  
 
   <container class="box url-input">      
-    <input class="input is-info" type="text" id="textinput" placeholder="Paste URL here, or type a topic of your interest."></input>
+    <input class="input" type="text" id="textinput" placeholder="Paste URL here, or type a topic of your interest."></input>
     <div class="buttons is-right">
         <input class="button" type="submit" value="Submit URL" id="submit-url-button"></input>
         <input class="button" type="submit" value="Submit Topic" id="topic-search-button"></input>
     </div>
-  
   </container>
 
   <container class="current-news">
@@ -71,7 +63,7 @@
     </div>
   </container>
 
-  <container class="hero is-dark is-bold has-background">
+  <container class="hero is-dark has-background">
     <div class="hero-body">
       <div class="container">
         <p>
@@ -121,14 +113,37 @@
                    <div class="buttons is-centered">
                        <a class="button is-dark is-rounded" type="submit" id="navigate-to-article">Click to Navigate to Original Article</a>
                        <a class="button is-dark is-rounded" type="submit" id="reset-button">Click to Return to Front</a>
-                     </div>
-                    </div>  
-                 </div>
-               </div>
+                       <a class="button is-danger is-rounded" type="submit" id="modal-button">About</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
         </div>
       </div>    
   </container>     
   
+  <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title small-logo">Tengu</p>
+        <button class="modal-close"></button>
+      </header>
+      <section class="modal-card-body">
+        <figure class="image is-1by1">
+          <img src="./assets/images/tengu.jpg" alt="A tengu">
+        </figure>
+        <hr>
+        <p>Tengu are creatures from Japanese folklore. They appear similar to humans with exception to their long noses and at times bird wings.</p>
+        <p>A tengu folktale: "A tengu bothers a woodcutter, showing off his supernatural abilities by guessing everything the man is thinking. The woodcutter swings his axe, and a splinter of wood hits the tengu on the nose. The tengu flees in terror, exclaiming that humans are dangerous creatures who can do things without thinking about them."</p>  
+        <p>May Tengu help you think about what you're reading.</p>
+      </section>
+    </div>
+  </div>
+          
+        
 
 </body>
 </html>
