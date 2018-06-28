@@ -235,5 +235,8 @@ $(document).ready(function() {
       $(".hero").show(1200);
       $(".topic-results").show(1200);
       $(".current-news").show(1200);
-    }); //########### reset end
-  }); //############### On load
+    });
+  }  
+});    
+   
+  

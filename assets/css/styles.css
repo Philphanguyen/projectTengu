@@ -61,3 +61,13 @@
     font-color: black;
 }
 
+.logo {
+    color: red;
+    font-size: 4em;
+    font-family: 'Oswald', Times;
+} 
+
+.has-background {
+    background: url('../images/hex.png') no-repeat center center fixed;
+    background-size: cover;
+}
