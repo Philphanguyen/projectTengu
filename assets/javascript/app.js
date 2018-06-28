@@ -5,6 +5,7 @@ $(document).ready(function() {
     // $(".hero").hide(1000);
    
    //################## Modals ##############################
+<<<<<<< HEAD
     // var modal = document.querySelector(".modal");
     // var trigger = document.querySelector(".trigger");
     // var closeButton = document.querySelector(".modal-close");
@@ -42,20 +43,58 @@ $(document).ready(function() {
     
     //#################### Function ########################################3
     function analyzeArticle(articleUrl) {
+=======
+    var modal = document.querySelector(".modal");
+    var trigger = document.querySelector(".trigger");
+    var closeButton = document.querySelector(".modal-close");
+    function toggleModal() {
+      modal.classList.toggle("show-modal");
+    };
+    function windowOnClick(event) {
+      if (event.target === modal) {
+        toggleModal();
+      };
+    };
+    trigger.addEventListener("click", toggleModal);
+    closeButton.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick);
+    //###### Function
+    function articleAnalyzer(articleToSummarize) {
+      var queryUrl = "https://cors-anywhere.herokuapp.com/" + "api.smmry.com/SM_API_KEY=CB55D94259&SM_URL=" + articleToSummarize + "&SM_IGNORE_LENGTH";
+      $.ajax({
+        url: queryUrl,
+        method: "GET",
+      }).then(function(response) {
+        console.log(response);
+        $("#summary-output").text(response.sm_api_content);
+        $("#article-title").text(response.sm_api_title);
+      });
+      //############################# Indico API (Summarize) ################################
+>>>>>>> develop
       $.post(
         'https://apiv2.indico.io/summarization',
         JSON.stringify({
           'api_key': "4f4722e7847cae008684275f830abf12",
+<<<<<<< HEAD
           'data': articleUrl,
           'top_n': 10,
         })
       ).then(function(res1) { 
         console.log(res1) ;
         var summaryObject = JSON.parse(res1);
+=======
+          'data': articleToSummarize,
+          'top_n': 10,
+        })
+      ).then(function(res1) { 
+        var summaryObject = JSON.parse(res1);
+        console.log(summaryObject);
+>>>>>>> develop
         let summaryDisplay = summaryObject.results.toString();
         summaryDisplay = summaryDisplay.replace(/\.,/g, ". ");
         summaryDisplay = summaryDisplay.replace(/\?,/g, ". ");
         summaryDisplay = summaryDisplay.replace(/Image copyright Getty Images/g, "");
+<<<<<<< HEAD
         $("#summary-output").text(summaryDisplay);     
       });
 
@@ -214,6 +253,9 @@ $(document).ready(function() {
     //     summaryDisplay = summaryDisplay.replace(/\?,/g, ". ");
     //     summaryDisplay = summaryDisplay.replace(/Image copyright Getty Images/g, "");
     //     $("#summary-output").text(summaryDisplay);   
+=======
+        $("#summary-output").text(summaryDisplay);   
+>>>>>>> develop
         
     //     $("#url-button").on("click", function() {
     //       window.open(articleUrl,  "_blank");
@@ -311,6 +353,7 @@ $(document).ready(function() {
     //   chart.draw(data, options);
     // };
       
+<<<<<<< HEAD
     //   });
     //   $("#navigate-to-article").on("click", function(){
     //     window.open(articleUrl, "_blank");
@@ -344,9 +387,42 @@ $(document).ready(function() {
       //   summaryDisplay = summaryDisplay.replace(/Image copyright Getty Images/g, "");
       //   $("#summary-output").text(summaryDisplay);     
       // });
+=======
+      });
+      $("#navigate-to-article").on("click", function(){
+        window.open(articleToSummarize, "_blank");
+      });
+    }; //###### Function
+    //###################### Calling Google News ################################
+    var currentNewsAPI = 'https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey=d3b35953079847e18ee6d70f0c5ef14a'
+    $.ajax({
+      url: currentNewsAPI,
+      method: "GET",
+    }).then(function(data) {
+      var resTop = data.articles;
+>>>>>>> develop
 
-   
+      for(var i=0; i < 5; i++) {
+        var currentDiv= $("<div>");
+        var currentTitle= $("<button>").text(resTop[i].title);
+        var currentBrk= $("<br>");
+        currentDiv.append(currentTitle);
+        currentDiv.append(currentBrk);
+        currentTitle.attr("title", resTop[i].title);
+        currentTitle.attr("input", resTop[i].url)
+        currentTitle.attr("id", "headline-button");
+        $("#top-current").prepend(currentDiv);
+      }
+    })
+    
+    //############################# Topic Search on click ##############################
+    $(document).on("click", "#topic-search-button", function() {
+      var inputURL=$("input").val();
+      $("#textinput").val("");
+      $(".current-news").hide(1000);
+      $(".topic-results").show(1000);
 
+<<<<<<< HEAD
  
 //############################# Repeat Code for topics buttons (emotion) ###########################
     //   $.post(
@@ -433,6 +509,62 @@ $(document).ready(function() {
   
     //   });
     // });
+=======
+      var queryTopic = inputURL;
+
+      var queryUrl = 'https://newsapi.org/v2/everything?' +
+                'q=' + queryTopic +'&' +
+                'sortBy=popularity&pageSize=5&' +
+                'apiKey=d3b35953079847e18ee6d70f0c5ef14a';
+      
+      $.ajax({
+        url: queryUrl,
+        method: "GET",
+      }).then(function(response) {
+        console.log(response);
+
+        var results = response.articles;
+
+        for (var i = 0; i < 5; i++) {
+
+          var articleDiv = $("<div>");
+          var titleDiv = $("<button>").text(results[i].title);
+          var titleBrk = $("<br>");
+
+          articleDiv.append(titleDiv);
+          articleDiv.append(titleBrk);
+          titleDiv.attr("input", results[i].url);
+          titleDiv.attr("id", "headline-button");      
+          
+          $("#news-results").prepend(articleDiv);
+        };
+      });
+    });//############ Topic Search
+  
+  // ################################### Submit URL Button Click #################################
+    $(document).on("click", "#submit-url-button", function() {
+      $(".hero").hide(1000);
+      $(".current-news").hide(1000);
+      $(".topic-results").hide(1000);
+      $(".results-display").show(1000);
+      var articleToSummarize=$("input").val();
+      $("#textinput").val("");
+      articleAnalyzer(articleToSummarize);
+    }); //################## Submit URL button
+
+//############################# Repeat Code for topics buttons (summarize) ###########################
+    $(document).on("click", "#headline-button", function() {
+      console.log("url clicked");
+      $(".hero").hide(1000);
+      $(".current-news").hide(1000);
+      $(".topic-results").hide(1000);
+      $(".results-display").show(1000);
+      $(".news-results").hide(1000);
+      $("#article-title").text($(this).attr("title"));
+      var articleToSummarize = $(this).attr("input");
+      articleAnalyzer(articleToSummarize);
+    });//################ Headline Button End
+>>>>>>> develop
     
     //################################ RESET ########################
     $("#reset-button").click(function(){
@@ -440,7 +572,12 @@ $(document).ready(function() {
       $(".hero").show(1200);
       $(".topic-results").show(1200);
       $(".current-news").show(1200);
+<<<<<<< HEAD
     });
 });    
    
   
+=======
+    }); //########### reset end
+  }); //############### On load
+>>>>>>> develop
